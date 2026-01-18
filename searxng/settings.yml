@@ -2,8 +2,46 @@
 use_default_settings: true
 server:
   # base_url is defined in the SEARXNG_BASE_URL environment variable, see .env and docker-compose.yml
-  secret_key: "ultrasecretkey"  # change this!
+  secret_key: "6ea3387ffc531a3519246263759c61d69c4f995cb65480aa442d0d15f6be464d"  # change this!
   limiter: false  # enable this when running the instance for a public usage on the internet
   image_proxy: true
 redis:
   url: redis://redis:6379/0
+
+general:
+  instance_name: "JasonSearch"
+  debug: true
+
+outgoing:
+  request_timeout: 10.0
+
+engines:
+  - name: mediamonarchy
+    engine: xpath
+    search_url: https://mediamonarchy.com/?s={query}
+    results_xpath: //li[.//h3]
+    url_xpath: .//h3/a/@href
+    title_xpath: .//h3/a/text()
+    content_xpath: .//p/text()
+    categories: general
+    shortcut: mm
+    timeout: 10.0
+    disabled: false
+    about:
+      website: https://mediamonarchy.com
+      language: en
+
+  - name: corbettreport
+    engine: xpath
+    search_url: https://corbettreport.com/?s={query}
+    results_xpath: //article
+    url_xpath: .//h2/a/@href
+    title_xpath: .//h2/a/text()
+    content_xpath: .//p[1]/text()
+    categories: general
+    shortcut: corby
+    timeout: 10.0
+    disabled: false
+    about:
+      website: https://corbettreport.com
+      language: en

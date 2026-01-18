@@ -34,7 +34,7 @@ services:
 
   searxng:
     container_name: searxng
-    image: docker.io/meowsaytounge/searxng:latest
+    image: docker.io/meowsaytounge/jasonsearch:latest
     restart: unless-stopped
     networks:
       - searxng
